@@ -1,0 +1,106 @@
+[root@ip-172-31-6-44 ~]# cat shiva.sh
+#!/bin/bash
+aws s3api list-buckets
+read -p "Enter bucket Name which u want to delete::" bucket_name
+aws s3 ls s3://$bucket_name
+aws s3 rm s3://$bucket_name/ --recursive --exclude "*" --include "*"
+aws s3 rb s3://$bucket_name
+aws s3api list-buckets
+[root@ip-172-31-6-44 ~]#
+
+
+=================================Ececution=============================
+
+[root@ip-172-31-6-44 ~]# sh -x shiva.sh
++ aws s3api list-buckets
+{
+    "Owner": {
+        "DisplayName": "shivajisonwane",
+        "ID": "d81928381b27ede53a0ac3a45ca3d24eb5fc092bdfa17fea9be4b68ce653b504"
+    },
+    "Buckets": [
+        {
+            "CreationDate": "2019-10-13T06:41:01.000Z",
+            "Name": "dips1"
+        },
+        {
+            "CreationDate": "2019-10-13T02:16:48.000Z",
+            "Name": "elasticbeanstalk-ap-south-1-315339207361"
+        },
+        {
+            "CreationDate": "2019-09-14T03:54:41.000Z",
+            "Name": "jenkinshiva1"
+        },
+        {
+            "CreationDate": "2019-10-03T04:45:03.000Z",
+            "Name": "nana123456"
+        },
+        {
+            "CreationDate": "2019-10-09T17:17:59.000Z",
+            "Name": "shivajisatish"
+        }
+    ]
+}
++ read -p 'Enter bucket Name which u want to delete::' bucket_name
+Enter bucket Name which u want to delete::dips1
++ aws s3 ls s3://dips1
+                           PRE .ssh/
+2019-10-13 07:04:58         18 .bash_logout
+2019-10-13 07:04:58        176 .bash_profile
+2019-10-13 07:04:58        176 .bashrc
+2019-10-13 07:04:58        100 .cshrc
+2019-10-13 07:04:59      12288 .shiva.sh.swp
+2019-10-13 07:04:59        129 .tcshrc
+2019-10-13 07:04:59          0 1
+2019-10-13 07:04:58          0 2
+2019-10-13 07:04:58          0 3
+2019-10-13 07:04:58          0 4
+2019-10-13 07:04:58          0 5
+2019-10-13 07:04:58          0 6
+2019-10-13 07:04:58          0 7
+2019-10-13 07:04:58        113 shiva.sh
++ aws s3 rm s3://dips1/ --recursive --exclude '*' --include '*'
+delete: s3://dips1/.bashrc
+delete: s3://dips1/7
+delete: s3://dips1/5
+delete: s3://dips1/3
+delete: s3://dips1/.cshrc
+delete: s3://dips1/4
+delete: s3://dips1/2
+delete: s3://dips1/.bash_profile
+delete: s3://dips1/.bash_logout
+delete: s3://dips1/6
+delete: s3://dips1/shiva.sh
+delete: s3://dips1/1
+delete: s3://dips1/.shiva.sh.swp
+delete: s3://dips1/.tcshrc
+delete: s3://dips1/.ssh/authorized_keys
++ aws s3 rb s3://dips1
+remove_bucket: dips1
++ aws s3api list-buckets
+{
+    "Owner": {
+        "DisplayName": "shivajisonwane",
+        "ID": "d81928381b27ede53a0ac3a45ca3d24eb5fc092bdfa17fea9be4b68ce653b504"
+    },
+    "Buckets": [
+        {
+            "CreationDate": "2019-10-13T02:16:48.000Z",
+            "Name": "elasticbeanstalk-ap-south-1-315339207361"
+        },
+        {
+            "CreationDate": "2019-09-14T03:54:41.000Z",
+            "Name": "jenkinshiva1"
+        },
+        {
+            "CreationDate": "2019-10-03T04:45:03.000Z",
+            "Name": "nana123456"
+        },
+        {
+            "CreationDate": "2019-10-09T17:17:59.000Z",
+            "Name": "shivajisatish"
+        }
+    ]
+}
+[root@ip-172-31-6-44 ~]#
+
